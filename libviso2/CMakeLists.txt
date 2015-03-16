@@ -3,6 +3,7 @@ project(libviso2)
 
 find_package(catkin REQUIRED )
 
+# fork test for arm
 #set(CMAKE_CXX_FLAGS "-msse3")
 add_definitions(-msse3)
 
