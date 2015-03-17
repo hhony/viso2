@@ -27,7 +27,13 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 #include <string.h>
 #include <iostream>
 #include <math.h>
+
+#ifdef __arm__
+#include "SSE-to-NEON/sse_to_neon.hpp"
+#else // (__x86_64__||__amd64__||__x86__||__i386__||__i686__)
 #include <emmintrin.h>
+#endif
+
 #include <algorithm>
 #include <vector>
 
