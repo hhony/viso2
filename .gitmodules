@@ -1,0 +1,3 @@
+[submodule "libviso2/libviso2/src/SSE-to-NEON"]
+	path = libviso2/libviso2/src/SSE-to-NEON
+	url = https://github.com/hhony/SSE-to-NEON.git
