@@ -3,16 +3,25 @@ project(libviso2)
 
 find_package(catkin REQUIRED )
 
-# fork test for arm
-#set(CMAKE_CXX_FLAGS "-msse3")
-add_definitions(-msse3)
+message(STATUS "#### System Processor: ${CMAKE_SYSTEM_PROCESSOR}, Pointer Size: ${CMAKE_SIZEOF_VOID_P} bytes")
+
+if(((CMAKE_SYSTEM_PROCESSOR MATCHES "i386|i686|x86|AMD64") AND (CMAKE_SIZEOF_VOID_P EQUAL 4)) OR
+  ((CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64") AND (CMAKE_SIZEOF_VOID_P EQUAL 8)) OR
+  ((CMAKE_SYSTEM_PROCESSOR MATCHES "i386") AND (CMAKE_SIZEOF_VOID_P EQUAL 8) AND (APPLE)))
+  set(TARGET_FLAGS "-msse3")
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "^arm*")
+  set(TARGET_FLAGS "-mfloat-abi=hard -mfpu=neon")
+endif()
+
+add_definitions(${TARGET_FLAGS})
 
 catkin_package(
   INCLUDE_DIRS libviso2/src
   LIBRARIES viso2
 )
 
-include_directories(libviso2/src
+include_directories(
+  libviso2/src
   ${catkin_INCLUDE_DIRS}
 )
 
